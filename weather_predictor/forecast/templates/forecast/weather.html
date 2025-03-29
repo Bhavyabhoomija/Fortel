@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Prediction</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f0f8ff;
+        }
+        h1 {
+            color: #333;
+        }
+        form {
+            margin: 20px;
+        }
+        input {
+            padding: 10px;
+            font-size: 16px;
+        }
+        button {
+            padding: 10px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .forecast {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .day {
+            background: #fff;
+            padding: 15px;
+            margin: 10px;
+            border-radius: 10px;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+            width: 200px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Weather Prediction</h1>
+    <form method="POST">
+        {% csrf_token %}
+        <input type="text" name="city" placeholder="Enter City Name" required>
+        <button type="submit">Get Forecast</button>
+    </form>
+
+    {% if city %}
+        <h2>Weather Forecast for {{ city }}</h2>
+        <div class="forecast">
+            {% for day in predictions %}
+                <div class="day">
+                    <h3>{{ day.date }}</h3>
+                    <p><strong>Max Temp:</strong> {{ day.max_temp }}°C</p>
+                    <p><strong>Min Temp:</strong> {{ day.min_temp }}°C</p>
+                    <p><strong>Humidity:</strong> {{ day.humidity }}%</p>
+                    <p><strong>Condition:</strong> {{ day.description }}</p>
+                    <p><strong>Wind Speed:</strong> {{ day.wind_speed }} km/h</p>
+                    <p><strong>Rain:</strong> {{ day.rain }} mm</p>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+</body>
+</html>
