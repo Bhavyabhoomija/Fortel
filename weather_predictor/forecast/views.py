@@ -85,3 +85,5 @@ def weather_view(request):
                 })
 
     return render(request, "forecast/weather.html", {"city": city, "predictions": predictions})
+def chatbot(request):
+    return render(request, 'chatbot1/chat.html')
