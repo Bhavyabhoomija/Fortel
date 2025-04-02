@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Prediction</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'forcast/style.css' %}">
+</head>
+<body>
+
+    <h1>Weather Prediction</h1>
+    <form method="POST">
+        {% csrf_token %}
+        <input type="text" name="city" placeholder="Enter City Name" required>
+        <button type="submit">Get Forecast</button>
+    </form>
+
+    {% if city %}
+        <h2>Weather Forecast for {{ city }}</h2>
+        <div class="forecast">
+            {% for day in predictions %}
+                <div class="day">
+                    <h3>{{ day.date }}</h3>
+                    <p><strong>Max Temp:</strong> {{ day.max_temp }}°C</p>
+                    <p><strong>Min Temp:</strong> {{ day.min_temp }}°C</p>
+                    <p><strong>Humidity:</strong> {{ day.humidity }}%</p>
+                    <p><strong>Condition:</strong> {{ day.description }}</p>
+                    <p><strong>Wind Speed:</strong> {{ day.wind_speed }} km/h</p>
+                    <p><strong>Rain:</strong> {{ day.rain }} mm</p>
+                </div>
+            {% endfor %}
+        <a href="{% url 'chatbot' %}">
+             <button class="btn">Recommendations</button>
+        </a>
+        </div>
+    {% endif %}
+
+</body>
+</html>
