@@ -16,20 +16,20 @@ csv_path = os.path.join(BASE_DIR, "FloodPrediction.csv")
 df = pd.read_csv(csv_path)
 
 
-# Features and Targets
+
 features = ['Year', 'Month', 'Max_Temp', 'Min_Temp', 'Rainfall', 
             'Relative_Humidity', 'Wind_Speed', 'Cloud_Coverage', 'LATITUDE', 'LONGITUDE']
 target_temp = 'Max_Temp'
 target_hum = 'Relative_Humidity'
 
-# Missing Columns Check
+
 missing_features = [col for col in features if col not in df.columns]
 if missing_features:
     print(" Error: Missing Columns →", missing_features)
 else:
     print(" All required columns exist!")
 
-# Split Data
+
 X = df[features]
 y_temp = df[target_temp]
 y_hum = df[target_hum]
@@ -68,7 +68,7 @@ ICON_MAPPING = {
     "snow": "snow",
     "mist": "fog"
 }
-#  Weather Prediction Function
+
 def weather_view(request):
     predictions = []
     city = None  # Default city to None
