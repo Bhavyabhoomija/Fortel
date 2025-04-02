@@ -8,7 +8,7 @@ from sklearn.ensemble import RandomForestRegressor
 from sklearn.preprocessing import StandardScaler
 import requests
 
-# 🟢 1️⃣ Load and Prepare the Dataset
+#  1 Load and Prepare the Dataset
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))  # Get the directory of views.py
 csv_path = os.path.join(BASE_DIR, "FloodPrediction.csv")
@@ -25,9 +25,9 @@ target_hum = 'Relative_Humidity'
 # Missing Columns Check
 missing_features = [col for col in features if col not in df.columns]
 if missing_features:
-    print("❌ Error: Missing Columns →", missing_features)
+    print(" Error: Missing Columns →", missing_features)
 else:
-    print("✅ All required columns exist!")
+    print(" All required columns exist!")
 
 # Split Data
 X = df[features]
@@ -42,20 +42,20 @@ X_scaled = scaler.fit_transform(X)
 X_train, X_test, y_temp_train, y_temp_test = train_test_split(X_scaled, y_temp, test_size=0.2, random_state=42)
 _, _, y_hum_train, y_hum_test = train_test_split(X_scaled, y_hum, test_size=0.2, random_state=42)
 
-# 🟢 2️⃣ Train ML Models
+#  Train ML Models
 temp_model = RandomForestRegressor(n_estimators=100, random_state=42)
 hum_model = RandomForestRegressor(n_estimators=100, random_state=42)
 
 temp_model.fit(X_train, y_temp_train)
 hum_model.fit(X_train, y_hum_train)
 
-print("✅ Model training completed!")
+print(" Model training completed!")
 
 # Save Models
 joblib.dump(temp_model, "temp_model.pkl")
 joblib.dump(hum_model, "hum_model.pkl")
 joblib.dump(scaler, "scaler.pkl")
-print("✅ Model files saved successfully!")
+print(" Model files saved successfully!")
 
 ICON_MAPPING = {
     "clear sky": "clear",
