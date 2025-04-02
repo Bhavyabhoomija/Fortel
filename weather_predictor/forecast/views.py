@@ -57,7 +57,18 @@ joblib.dump(hum_model, "hum_model.pkl")
 joblib.dump(scaler, "scaler.pkl")
 print("✅ Model files saved successfully!")
 
-# 🟢 3️⃣ Weather Prediction Function
+ICON_MAPPING = {
+    "clear sky": "clear",
+    "few clouds": "cloudy",
+    "scattered clouds": "cloudy",
+    "broken clouds": "cloudy",
+    "shower rain": "rain",
+    "rain": "rain",
+    "thunderstorm": "storm",
+    "snow": "snow",
+    "mist": "fog"
+}
+#  Weather Prediction Function
 def weather_view(request):
     predictions = []
     city = None  # Default city to None
@@ -81,7 +92,8 @@ def weather_view(request):
                     "humidity": day_data['main']['humidity'],
                     "description": day_data['weather'][0]['description'],
                     "wind_speed": day_data['wind']['speed'],
-                    "rain": day_data.get('rain', {}).get('3h', 0)
+                    "rain": day_data.get('rain', {}).get('3h', 0),
+                    "icon": ICON_MAPPING.get(day_data['weather'][0]['description'], "default")
                 })
 
     return render(request, "forecast/weather.html", {"city": city, "predictions": predictions})
