@@ -28,13 +28,20 @@
                     <p><strong>Condition:</strong> {{ day.description }}</p>
                     <p><strong>Wind Speed:</strong> {{ day.wind_speed }} km/h</p>
                     <p><strong>Rain:</strong> {{ day.rain }} mm</p>
+                    {% if day.icon %}
+                        <img src="{% static 'icons/' %}{{ day.icon }}.png" alt="Weather Icon">
+                    
+                    {% endif %}
                 </div>
             {% endfor %}
-        <a href="{% url 'chatbot' %}">
-             <button class="btn">Recommendations</button>
-        </a>
+        </div>
+    <div id="weatherCondition" style="display: none;">
+            {{ predictions.0.description }}
         </div>
     {% endif %}
-
+    <a href="{% url 'chatbot' %}">
+             <button class="btn"> get Recommendations</button>
+        </a>
+<script src="{% static 'script.js' %}"></script>
 </body>
 </html>
